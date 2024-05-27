@@ -1,39 +1,41 @@
 "use client"
 import { usePathname } from "next/navigation";
+import { Button } from '@/src/app/components/Elements/button';
 import Link from "next/link";
-import { useState } from "react";
-
-const navLinks = [
-  { name: "Login", href: "/login" },
-  { name: "Register", href: "/register" },
-  { name: "Forgot Password", href: "/forgot-password" },
-];
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
   const pathname = usePathname();
-  const [input, setInput] = useState<string>('');
+
   return (
-    <div>
-      <div>
-        <input type="text" value={input} onChange={e => setInput(e.target.value)} />
-      </div>
-      {navLinks.map((link) => {
-        const isActive = pathname.startsWith(link.href);
-        return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={isActive ? "font-bold mr-4" : "text-blue-500 mr-4"}
-          >
-            {link.name}
+    <div className="flex h-screen justify-center items-center bg-slate-100">
+      <div className="bg-white p-4 rounded-lg shadow-md">
+        {pathname === "/register" ? (
+          <h1 className="text-center font-bold text-2xl my-3">Daftar</h1>
+        ) : (
+          <h1 className="text-center font-bold text-2xl my-3">Masuk</h1>
+        )}
+
+        {children}
+
+        {pathname === "/register" ? (
+          <Link href={"/login"}>
+            <Button className={'bg-red-500 hover:bg-red-700 w-full mt-2'} type={""}>
+              Back
+            </Button>
           </Link>
-        );
-      })}
-      {children}
+        ) : (
+          <Link href={"/register"}>
+            <Button className={'bg-yellow-500 hover:bg-yellow-700 w-full mt-2'} type={""}>
+              Register
+            </Button>
+          </Link>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};

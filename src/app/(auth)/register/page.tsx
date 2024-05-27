@@ -1,6 +1,9 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Button } from '@/src/app/components/Elements/button';
+import { Input } from '@/src/app/components/Elements/input';
+import { BiUser, BiKey } from 'react-icons/bi';
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -24,20 +27,22 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={handleRegister}>
-      <input
-        type="email"
+    <form onSubmit={handleRegister} className='flex flex-col gap-4'>
+      <Input
+        logo={<BiUser />}
+        placeholder={'Email'}
+        type={'email'}
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
+        onChange={(e: any) => setEmail(e.target.value)}
       />
-      <input
-        type="password"
+      <Input
+        logo={<BiKey />}
+        placeholder={'Password'}
+        type={'password'}
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
+        onChange={(e: any) => setPassword(e.target.value)}
       />
-      <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' disabled={isSubmit}>Register</button>
+      <Button className={'bg-blue-500 hover:bg-blue-700'} type={"submit"} disabled={isSubmit}>Register</Button>
     </form>
   );
 };
