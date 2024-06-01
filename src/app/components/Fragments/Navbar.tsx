@@ -1,52 +1,38 @@
 "use client"
 import { useEffect, useState } from 'react'
-import { BiMenu, BiX, BiSolidUser, BiSolidStore, BiSearchAlt } from 'react-icons/bi'
+import { BiMenu, BiX, BiSolidUser, BiSolidStore, BiSearch, BiUser } from 'react-icons/bi'
 import Link from 'next/link'
 
 export default function Navbar() {
   const [NavButton, setNavButton]: any = useState(true);
-  // const getsessionStorage = sessionStorage.getItem('user');
-  // const user = getsessionStorage ? JSON.parse(getsessionStorage) : [];
   return (
-    <nav className='sticky top-0 z-50 w-auto p-5 bg-white shadow-md'>
+    <nav className='sticky top-0 z-50 w-full p-5 bg-white shadow-md'>
 
-      <div className="flex">
-
-        {/* Tittle */}
-        <h1 className='flex p-1 text-xl font-bold text-emerald-400'><Link href="/">Tokopedia Clone</Link></h1>
-
-        <div className='flex gap-2 items-center lg:w-[55%] md:w-[40%] mx-5 px-2 border rounded-md border-slate-300'>
-          <BiSearchAlt className='text-xl ' />
-          <input type="text" className='w-full outline-none h-7' />
-        </div>
-        {/* Navbar Menu Tab & Computer */}
-        <div className='absolute hidden md:block right-10'>
-          <ul className='flex flex-row gap-4 text-3xl'>
-            <li><Link className='flex items-center text-[20px] gap-2 hover:bg-slate-300 rounded px-2' href="/toko"><BiSolidStore /><span>Store</span></Link></li>
-            <li>
-              <Link className='flex items-center text-[20px] gap-2 hover:bg-slate-300 rounded px-2' href="/login">
-                <BiSolidUser />
-                <span>Login</span>
-              </Link>
-            </li>
-          </ul>
+      <div className='flex flex-row items-center justify-between'>
+        <h1 className='text-[18px] font-bold text-green-500 md:text-lg'><Link href={"/"}>Tokopedia Clone</Link></h1>
+        <div className='hidden md:flex'>
+          <Link href={"/profile"} className='items-center flex gap-2 p-2 rounded hover:bg-slate-100'>
+            <BiUser />
+            <span>User</span>
+          </Link>
         </div>
 
         {/* Navbar Button For Mobile */}
-        <div>
-          <button className='text-3xl md:hidden' onClick={() => setNavButton(!NavButton)}>
-            {NavButton ? <BiMenu /> : <BiX />}
-          </button>
-        </div>
-
+        <button className='text-3xl md:hidden' onClick={() => setNavButton(!NavButton)}>
+          {NavButton ? <BiMenu /> : <BiX />}
+        </button>
       </div>
 
       {/* Navbar Menu For Mobile */}
-      <ul className={`${NavButton ? 'hidden' : 'block'} md:hidden pt-7`}>
+      <ul className={`${NavButton ? 'hidden' : 'block'} md:hidden p-2 rounded w-52 absolute bg-slate-100 right-5 shadow-md`}>
+        <div className="flex items-center p-0 overflow-hidden bg-white border rounded border-slate-300">
+          <BiSearch className='mx-2' />
+          <input type="text" className='flex-1 w-32 h-auto border-none outline-none' />
+        </div>
         <li><Link className='flex items-center gap-2 px-2 rounded hover:bg-slate-300' href="/profile"><BiSolidUser /> Profile</Link></li>
         <li><Link className='flex items-center gap-2 px-2 rounded hover:bg-slate-300' href=""><BiSolidStore /> Store</Link></li>
       </ul>
 
     </nav>
-  )
-}
+  );
+};

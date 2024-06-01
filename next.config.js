@@ -10,6 +10,11 @@ const nextConfig = {
         hostname: 'images.tokopedia.net',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com',
+        pathname: '**',
+      }
     ],
   }
 }
