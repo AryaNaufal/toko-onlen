@@ -1,13 +1,15 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { BiMenu, BiX, BiSolidUser, BiSolidStore, BiSearch, BiUser } from 'react-icons/bi'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [NavButton, setNavButton]: any = useState(true);
+  const pathName = usePathname();
+  const authPage = pathName === '/login' || pathName === '/register';
   return (
-    <nav className='sticky top-0 z-50 w-full p-5 bg-white shadow-md'>
-
+    <nav className={` top-0 z-50 w-full p-5 bg-white shadow-md ${authPage ? 'hidden' : 'sticky'}`}>
       <div className='flex flex-row items-center justify-between'>
         <h1 className='text-[18px] font-bold text-green-500 md:text-lg'><Link href={"/"}>Tokopedia Clone</Link></h1>
         <div className='hidden md:flex'>

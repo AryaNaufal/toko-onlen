@@ -28,7 +28,7 @@ export default function Profile() {
           <div className="py-3 flex flex-col gap-1">
             <h3 className="font-bold text-lg">Info Profile</h3>
 
-            <Link href={"/profile/nama"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile/nama"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Nama:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Tono Sutono Sujoyo</p>
@@ -36,7 +36,7 @@ export default function Profile() {
               <BiChevronRight className="text-xl font-bold" />
             </Link>
 
-            <Link href={"/profile/username"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile/username"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Username:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Tono Keren</p>
@@ -44,7 +44,7 @@ export default function Profile() {
               <BiChevronRight className="text-xl font-bold" />
             </Link>
 
-            <Link href={"/profile/bio"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile/bio"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Bio:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, explicabo!</p>
@@ -56,7 +56,7 @@ export default function Profile() {
           {/* Info Pribadi */}
           <div className="py-3 flex flex-col gap-1">
             <h3 className="font-bold text-lg">Info Pribadi</h3>
-            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">User ID:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">12345678</p>
@@ -64,7 +64,7 @@ export default function Profile() {
               <BiChevronRight className="text-xl font-bold" />
             </Link>
 
-            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Email:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Tono@example.com</p>
@@ -72,7 +72,7 @@ export default function Profile() {
               <BiChevronRight className="text-xl font-bold" />
             </Link>
 
-            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">No HP:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">08123456789</p>
@@ -80,7 +80,7 @@ export default function Profile() {
               <BiChevronRight className="text-xl font-bold" />
             </Link>
 
-            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Jenis Kelamin:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Pria</p>
@@ -88,7 +88,7 @@ export default function Profile() {
               <BiChevronRight className="text-xl font-bold" />
             </Link>
 
-            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded hover:bg-slate-100">
+            <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Tanggal Lahir:</span>
                 <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">23 Agustus 2003</p>
