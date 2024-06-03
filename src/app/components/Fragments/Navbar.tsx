@@ -3,20 +3,19 @@ import { useState } from 'react'
 import { BiMenu, BiX, BiSolidUser, BiSolidStore, BiSearch, BiUser } from 'react-icons/bi'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation';
+import AuthBtn from './AuthBtn';
 
 export default function Navbar() {
   const [NavButton, setNavButton]: any = useState(true);
   const pathName = usePathname();
   const authPage = pathName === '/login' || pathName === '/register';
+
   return (
     <nav className={` top-0 z-50 w-full p-5 bg-white shadow-md ${authPage ? 'hidden' : 'sticky'}`}>
       <div className='flex flex-row items-center justify-between'>
         <h1 className='text-[18px] font-bold text-green-500 md:text-lg'><Link href={"/"}>Tokopedia Clone</Link></h1>
-        <div className='hidden md:flex'>
-          <Link href={"/profile"} className='items-center flex gap-2 p-2 rounded hover:bg-slate-100'>
-            <BiUser />
-            <span>User</span>
-          </Link>
+        <div className='hidden md:flex md:gap-3'>          
+          <AuthBtn />
         </div>
 
         {/* Navbar Button For Mobile */}
@@ -33,6 +32,7 @@ export default function Navbar() {
         </div>
         <li><Link className='flex items-center gap-2 px-2 rounded hover:bg-slate-300' href="/profile"><BiSolidUser /> Profile</Link></li>
         <li><Link className='flex items-center gap-2 px-2 rounded hover:bg-slate-300' href=""><BiSolidStore /> Store</Link></li>
+        <AuthBtn />
       </ul>
 
     </nav>

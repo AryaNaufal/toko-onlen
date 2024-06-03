@@ -91,7 +91,7 @@ export default function Profile() {
             <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Tanggal Lahir:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">23 Agustus 2003</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">01 Januari 1999</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>

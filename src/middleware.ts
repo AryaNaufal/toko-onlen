@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { NextResponse, type NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
-  const cookie = req.cookies.get('auth');
-  console.log('cookie:', cookie);
-    return NextResponse.next();
-}
+export async function middleware(req: NextRequest) {
+  const token = await getToken({ req });
+  const isAuthenticated = !!token;
+  const isProfilePage = req.nextUrl.pathname.startsWith('/profile');
 
-export const config = {
-  matcher: '/'
+  if(isProfilePage && !isAuthenticated) {
+    return NextResponse.redirect(new URL('/login', req.url))
+  }
 }
