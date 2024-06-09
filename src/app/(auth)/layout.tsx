@@ -1,6 +1,6 @@
 "use client"
 import { usePathname } from "next/navigation";
-import { Button } from '@/src/app/components/Elements/button';
+import { Button } from '@/src/app/components/Elements/Button';
 import Link from "next/link";
 
 export default function AuthLayout({
@@ -24,13 +24,13 @@ export default function AuthLayout({
 
         {pathname === "/register" ? (
           <Link href={"/login"}>
-            <Button className={'bg-red-500 hover:bg-red-700 w-full mt-2'} type={""}>
+            <Button variant='danger' type={""} style={{'width': '100%', 'margin-top': '10px'}}>
               Back
             </Button>
           </Link>
         ) : (
           <Link href={"/register"}>
-            <Button className={'bg-yellow-500 hover:bg-yellow-700 w-full mt-2'} type={""}>
+            <Button variant='warning' type={""} style={{'width': '100%', 'margin-top': '10px'}}>
               Register
             </Button>
           </Link>

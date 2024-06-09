@@ -4,7 +4,7 @@ export const Input = ({ logo, placeholder, ...props }: any) => {
       <div className={'mx-3 text-3xl'}>
         {logo}
       </div>
-      <input id="input" type="text" placeholder={placeholder} className={'flex-1 p-3 border-none outline-none'} {...props} />
+      <input type="text" placeholder={placeholder} className={'flex-1 p-3 border-none outline-none'} {...props} />
     </div>
   );
 };

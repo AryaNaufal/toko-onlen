@@ -1,7 +1,7 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { BiUser } from "react-icons/bi";
+import { BiUser, BiSolidStore} from "react-icons/bi";
 import { useState, useEffect } from "react";
 
 export default function AuthBtn() {
@@ -24,6 +24,10 @@ export default function AuthBtn() {
         <Link href="/profile" className="items-center flex gap-2 p-2 rounded hover:bg-slate-100">
           <BiUser />
           <span>{session.user?.email}</span>
+        </Link>
+        <Link href="/profile" className="items-center flex gap-2 p-2 rounded hover:bg-slate-100">
+          <BiSolidStore />
+          <span>store</span>
         </Link>
         <button className="text-white font-semibold bg-red-500 p-2 rounded" onClick={() => signOut({ redirect: true, callbackUrl: "/login" })}>
           SignOut

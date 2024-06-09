@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Button } from '@/src/app/components/Elements/button';
+import { Button } from '@/src/app/components/Elements/Button';
 import { Input } from '@/src/app/components/Elements/input';
 import { BiUser, BiKey } from "react-icons/bi";
 import { signIn } from 'next-auth/react';
@@ -43,7 +43,7 @@ export default function Login({ searchParams }: Props) {
   return (
     <>
       {error && (
-        <p className='text-sm bg-red-500 font-semibold p-2 mb-4 rounded text-white flex justify-center'>
+        <p className='flex justify-center p-2 mb-4 text-sm font-semibold text-white bg-red-500 rounded'>
           {error}
         </p>
       )}
@@ -65,7 +65,7 @@ export default function Login({ searchParams }: Props) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
           required
         />
-        <Button className='bg-blue-500 hover:bg-blue-700' type='submit' disabled={isSubmit}>
+        <Button type='submit' disabled={isSubmit}>
           {isSubmit ? 'Logging in...' : 'Login'}
         </Button>
       </form>

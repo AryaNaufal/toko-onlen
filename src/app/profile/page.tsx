@@ -8,7 +8,7 @@ export default function Profile() {
   // const user = getSessionStorage ? JSON.parse(getSessionStorage) : [];
   return (
     <>
-      <div className="flex justify-center h-screen overflow-hidden">
+      <div className="flex justify-center h-screen overflow-hidden my-10">
 
         <div className="bg-white rounded-md">
 
@@ -31,7 +31,7 @@ export default function Profile() {
             <Link href={"/profile/nama"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Nama:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Tono Sutono Sujoyo</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -39,7 +39,7 @@ export default function Profile() {
             <Link href={"/profile/username"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Username:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Tono Keren</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -47,7 +47,7 @@ export default function Profile() {
             <Link href={"/profile/bio"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Bio:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, explicabo!</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -59,7 +59,7 @@ export default function Profile() {
             <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">User ID:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">12345678</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -67,7 +67,7 @@ export default function Profile() {
             <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Email:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Tono@example.com</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -75,7 +75,7 @@ export default function Profile() {
             <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">No HP:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">08123456789</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -83,7 +83,7 @@ export default function Profile() {
             <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Jenis Kelamin:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">Pria</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>
@@ -91,7 +91,7 @@ export default function Profile() {
             <Link href={"/profile"} className="p-1 flex justify-between text-slate-500 items-center rounded active:bg-slate-100">
               <div className="flex text-sm">
                 <span className="w-28 min-w-28">Tanggal Lahir:</span>
-                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">01 Januari 1999</p>
+                <p className="text-black text-wrap line-clamp-1 w-36 sm:w-64">...</p>
               </div>
               <BiChevronRight className="text-xl font-bold" />
             </Link>

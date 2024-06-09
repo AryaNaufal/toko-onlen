@@ -1,24 +1,19 @@
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
+import { Button } from "../Elements/Button";
 
 export default function CardProduct({ src, nama_barang, harga }: Params) {
 
   return (
-    <div className="overflow-hidden bg-white rounded-lg shadow-lg cursor-pointer outline outline-1 outline-slate-200">
-      <Image src={src} alt="image" width={100} height={100} />
+    <div className="overflow-hidden w-60 bg-white rounded-lg shadow-lg">
+      <Image src={src} alt="image" priority={true} width={300} height={300} className="h-32 w-80 object-cover"/>
       <div className="flex flex-col p-2">
         <span className="text-sm">{nama_barang}</span>
-        <span className="font-bold">{harga}</span>
+        <div className="flex justify-between items-center">
+          <span className="font-bold">{harga}</span>
+          <Button className="bg-green-500">Buy</Button>
+        </div>
       </div>
     </div>
-
-
-
   )
 }
-
-{/* <div className="flex-none w-64 p-4 border rounded-md">
-<img src={src} alt={nama_barang} width={100} height={100} className="w-full h-48 object-cover" />
-<h2 className="mt-2 text-lg font-bold">{nama_barang}</h2>
-<p className="mt-1 text-sm">${harga}</p>
-</div> */}
