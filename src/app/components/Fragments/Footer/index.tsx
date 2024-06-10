@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import style from "./Footer.module.scss";
+import style from "./_Footer.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
