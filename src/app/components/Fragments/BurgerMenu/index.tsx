@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import style from './_MainMenu.module.scss'
+import style from './_BurgerMenu.module.scss'
 import { BiChevronRight } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
 export default function MainMenu() {

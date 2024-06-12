@@ -3,10 +3,10 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation';
 import style from './_Navbar.module.scss'
 import { BiSearch } from 'react-icons/bi';
-import { CiMail, CiBellOn, CiShoppingCart, CiMenuBurger } from "react-icons/ci";
+import { CiMail, CiBellOn, CiShoppingCart } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { LuMenu } from "react-icons/lu";
-import MainMenu from '../MainMenu';
+import BurgerMenu from '../BurgerMenu';
 
 export default function Navbar() {
   const [NavButton, setNavButton]: any = useState(true);
@@ -36,7 +36,7 @@ export default function Navbar() {
             <h1>Menu Utama</h1>
           </div>
           <div className={style.content}>
-            <MainMenu />
+            <BurgerMenu />
           </div>
         </div>
       </div>

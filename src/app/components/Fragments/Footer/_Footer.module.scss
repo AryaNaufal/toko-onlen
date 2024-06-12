@@ -22,7 +22,7 @@
     background-color: white;
 
     .active {
-      background-color: red;
+      color: #00AA5B;
     }
 
     @media only screen and (min-width: 1024px) {
@@ -30,23 +30,21 @@
     }
   }
 
-  & .home,
-  .feed,
-  .officialStore,
-  .whishlist,
-  .transaction {
-    @include flex;
-    flex-direction: column;
-    width: 65px;
-    height: 60px;
-    font-size: 10px;
-    gap: 5px;
-    color: #232b2b;
+  @for $i from 1 through 6 {
+    ul li:nth-child(3n + #{$i}) a {
+      @include flex;
+      flex-direction: column;
+      width: 65px;
+      height: 60px;
+      font-size: 10px;
+      gap: 5px;
+      color: #232b2b;
 
-    @media only screen and (min-width: 640px) {
-      height: 70px;
-      width: 80px;
-      font-size: 13px;
+      @media only screen and (min-width: 640px) {
+        height: 70px;
+        width: 80px;
+        font-size: 13px;
+      }
     }
   }
 }

@@ -1,0 +1,87 @@
+.container {
+  background-color: #E4EBF5;
+
+  & .product {
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    margin-bottom: 15px;
+
+    & img {
+      width: 100%;
+    }
+
+    & .price {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 24px;
+      margin: 10px;
+    }
+
+    & .name {
+      size: 20px;
+      font-weight: normal;
+      line-height: 20px;
+      margin: 10px;
+    }
+
+    & .description {
+      margin: 10px;
+    }
+  }
+
+  & .buyrate {
+    background-color: white;
+    width: 100%;
+
+    & .rating {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+
+      & div:first-child {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+
+        & p:nth-child(2) {
+          color: #00AA5B;
+        }
+      }
+
+      & .ratenum {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+
+        & span:nth-child(4) {
+          border-radius: 100px;
+          background-color: #64748b;
+          width: 4px;
+          height: 4px;
+        }
+
+        & span:nth-child(3),
+        span:nth-child(5) {
+          color: #64748b;
+          font-weight: normal;
+          margin: 0 10px;
+        }
+      }
+
+      & .ratetype {
+        display: flex;
+        gap: 10px;
+        color: #64748b;
+
+        & p {
+          padding: 10px;
+          width: 50%;
+          border: solid 1px #94a3b8;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
