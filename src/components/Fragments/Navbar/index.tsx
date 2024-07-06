@@ -7,8 +7,24 @@ import { CiMail, CiBellOn, CiShoppingCart } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
 import { LuMenu } from "react-icons/lu";
 import BurgerMenu from '../BurgerMenu';
+import { Session } from '@/src/lib/session';
 
-export default function Navbar() {
+interface MainMenuProps {
+  initialCookies: userSession[] | null;
+}
+
+export async function getServerSideProps() {
+  const userData = await Session(); // Fetch user session data
+
+  return {
+    props: {
+      initialCookies: userData // Pass session data as initialCookies
+    }
+  }
+}
+
+
+export default function Navbar({ initialCookies }: MainMenuProps) {
   const [NavButton, setNavButton]: any = useState(true);
   const pathName = usePathname();
   const authPage = pathName === '/login' || pathName === '/register';
@@ -36,7 +52,7 @@ export default function Navbar() {
             <h1>Menu Utama</h1>
           </div>
           <div className={style.content}>
-            <BurgerMenu />
+            <BurgerMenu initialCookies={initialCookies} />
           </div>
         </div>
       </div>

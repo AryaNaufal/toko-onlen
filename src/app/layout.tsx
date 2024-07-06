@@ -1,9 +1,9 @@
 import '@/src/app/globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Navbar from './components/Fragments/Navbar'
-import Provider from './components/Fragments/Provider'
-import Footer from './components/Fragments/Footer'
+import Navbar from '@/src/components/Fragments/Navbar'
+import Provider from '@/src/components/Fragments/Provider'
+import Footer from '@/src/components/Fragments/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Provider>
-          <Navbar />
+          <Navbar initialCookies={null}/>
           {children}
           <Footer />
         </Provider>

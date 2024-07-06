@@ -1,0 +1,71 @@
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+// Find all store
+export async function GET() {
+  try {
+    const stores = await prisma.store.findMany()
+    return new Response(JSON.stringify(stores), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+  } catch (error) {
+    console.error(error);
+    return new Response('Internal server error', {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+  }
+}
+
+// Create store name
+export async function POST(req: Request) {
+  const { name, userId }: Store = await req.json();
+
+  if (!name) {
+    return new Response('Name are required', {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+  }
+
+  // Check if store already exist
+  const storeExist = await prisma.store.findFirst({ where: { name } });
+
+  if (storeExist) {
+    return new Response(
+      JSON.stringify({ message: 'Store already exist' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  try {
+    const stores = await prisma.store.create({
+      data: {
+        name,
+        userId
+      }
+    });
+
+    return new Response(
+      JSON.stringify(stores), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+  } catch (error) {
+    // console.error(error);
+    return new Response(
+      JSON.stringify({ message: 'Internal Server Error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+}

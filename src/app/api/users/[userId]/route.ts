@@ -2,11 +2,9 @@ import { database } from "@/src/utils/prisma";
 import { User } from "../route";
 const prisma = database.getDB();
 
-
-
 // Find Users by ID
-export async function GET(req: Request, { params }: { params: { userId: string } }) {
-  const { userId } = params;
+export async function GET(req: Request, context: { params: { userId: string } }) {
+  const { userId } = context.params;
 
   try {
     const user = await prisma.user.findUnique({
@@ -40,8 +38,8 @@ export async function GET(req: Request, { params }: { params: { userId: string }
 }
 
 // Delete User
-export async function DELETE(req: Request, { params }: { params: { userId: string } }) {
-  const { userId } = params;
+export async function DELETE(req: Request, context: { params: { userId: string } }) {
+  const { userId } = context.params;
 
   try {
     const user = await prisma.user.delete({
@@ -74,8 +72,8 @@ export async function DELETE(req: Request, { params }: { params: { userId: strin
 }
 
 // Edit User
-export async function PUT(req: Request, { params }: { params: { userId: string } }) {
-  const { userId } = params;
+export async function PUT(req: Request, context: { params: { userId: string } }) {
+  const { userId } = context.params;
   const { name, email, password }: User = await req.json();
 
   try {

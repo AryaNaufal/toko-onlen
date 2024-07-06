@@ -1,6 +1,6 @@
 "use client"
 import { usePathname } from "next/navigation";
-import { Button } from '@/src/app/components/Elements/Button';
+import { Button } from '@/src/components/Elements/Button';
 import Link from "next/link";
 
 export default function AuthLayout({
@@ -24,13 +24,13 @@ export default function AuthLayout({
 
         {pathname === "/register" ? (
           <Link href={"/login"}>
-            <Button variant='danger' type={""} style={{'width': '100%', 'margin-top': '10px'}}>
+            <Button variant='danger' type={""} style={{'width': '100%', 'marginTop': '10px'}}>
               Back
             </Button>
           </Link>
         ) : (
           <Link href={"/register"}>
-            <Button variant='warning' type={""} style={{'width': '100%', 'margin-top': '10px'}}>
+            <Button variant='warning' type={""} style={{'width': '100%', 'marginTop': '10px'}}>
               Register
             </Button>
           </Link>

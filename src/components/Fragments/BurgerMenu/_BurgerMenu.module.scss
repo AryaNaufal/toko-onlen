@@ -97,8 +97,8 @@
       gap: 10px;
       width: 100%;
 
-      & div:first-child,
-      div:nth-child(2) {
+      & button,
+      div {
         display: flex;
         align-items: center;
         border: solid 1px #cbd5e1;

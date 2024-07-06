@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import style from './_Details.module.scss'
 import Image from "next/image"
-
+import { Button } from "@/src/components/Elements/Button"
 type Props = {
   params: {
     productId: string
@@ -31,6 +31,7 @@ export default function ProductDetails({ params }: Props) {
           <p className={style.description}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate error eligendi, vero esse tenetur aliquid ea, ullam quidem quae corrupti natus aperiam! Velit cumque distinctio delectus voluptatibus ex alias, commodi sed omnis at accusantium repellendus nam dicta, voluptas quia aut suscipit ullam et culpa odit voluptatum. Velit odit soluta provident at, adipisci et! Ea hic nihil asperiores cupiditate eveniet! Illum rem unde vero accusamus alias enim magni. Quibusdam iure sed non deserunt error quod beatae nulla itaque voluptates eligendi quis quae consequatur aliquid, fuga facere voluptatum aliquam placeat amet deleniti unde nemo maiores. Ullam ducimus dolor possimus facilis at consequuntur.
           </p>
+          <Button>Baca Selengkapnya</Button>
         </div>
 
         <div className={style.buyrate}>

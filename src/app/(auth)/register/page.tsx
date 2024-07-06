@@ -1,8 +1,8 @@
 "use client"
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Button } from '@/src/app/components/Elements/Button';
-import { Input } from '@/src/app/components/Elements/input';
+import { Button } from '@/src/components/Elements/Button';
+import { Input } from '@/src/components/Elements/input';
 import { BiUser, BiKey } from 'react-icons/bi';
 
 export default function Register() {

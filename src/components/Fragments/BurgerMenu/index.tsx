@@ -1,18 +1,74 @@
-import Image from 'next/image'
-import style from './_BurgerMenu.module.scss'
+import Image from 'next/image';
+import style from './_BurgerMenu.module.scss';
 import { BiChevronRight } from "react-icons/bi";
 import { GoGear } from "react-icons/go";
-export default function MainMenu() {
+import { useEffect, useState } from 'react';
+import { Session } from '@/src/lib/session';
+
+interface MainMenuProps {
+  initialCookies: userSession[] | null;
+}
+
+export default function MainMenu<T extends MainMenuProps>({ initialCookies }: T) {
+  const [cookies, setCookies] = useState(initialCookies);
+
+  useEffect(() => {
+    if (!initialCookies) {
+      const fetchData = async () => {
+        const sessionCookies = await Session();
+        setCookies(sessionCookies);
+      };
+
+      fetchData();
+    }
+  }, [initialCookies]);
+
+  const handleSubmit = async () => {
+    const id = cookies?.map(user => user?.id).toLocaleString();
+    const StoreName: any = window.prompt("Masukan nama toko")
+
+    if (!StoreName) {
+      return;
+    }
+
+    if (StoreName.length < 3) {
+      return alert('Store Name must at least 8 characters');
+    }
+
+    try {
+      const res = await fetch('/api/store/', {
+        method: "POST",
+        body: JSON.stringify({ name: StoreName, userId: Number(id) })
+      });
+      if (res.ok) {
+        alert('Success');
+        return res
+      }
+    } catch (error) {
+      return alert(error);
+    }
+  }
+
   return (
     <div className={style.mainMenu}>
-
       <div className={style.container1}>
         <div className={style.headProfile}>
           <Image src={'https://i.pinimg.com/736x/85/fa/d1/85fad1ebf58dedcc2ff2010021465e03.jpg'} width={200} height={200} alt='profile' className={style.imgProfile} />
           <div className={style.infoProfile}>
             <div>
               <Image src={'https://images.tokopedia.net/img/img/HThbdi/2023/01/13/pakai_promo_member_silver.png'} width={200} height={200} alt='profile' className={style.imgProfile} />
-              <p>Tono</p>
+              {cookies && cookies.length > 0 ? (
+                <>
+                  {cookies.map((user: userSession) => (
+                    <p key={user.id}>
+                      {user.email}
+                    </p>
+                  ))}
+                </>
+
+              ) : (
+                <p>No users found</p>
+              )}
             </div>
             <div>
               <Image src={'https://assets.tokopedia.net/asts/navigation-v2/global-menu/icon/gopay.svg'} width={200} height={200} alt='profile' className={style.imgProfile} />
@@ -36,10 +92,11 @@ export default function MainMenu() {
         </div>
 
         <div className={style.store}>
-          <div>
+          { }
+          <button onClick={handleSubmit}>
             <h1>Buka Toko</h1>
             <BiChevronRight />
-          </div>
+          </button>
           <div>
             <h1>Daftar Affiliate</h1>
             <BiChevronRight />
@@ -122,5 +179,5 @@ export default function MainMenu() {
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};

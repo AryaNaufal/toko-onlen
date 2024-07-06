@@ -1,6 +1,4 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "../lib/auth";
-import CardProduct from "./components/Fragments/Card";
+import CardProduct from "@/src/components/Fragments/Card";
 import Link from "next/link";
 
 const product = [
@@ -21,11 +19,9 @@ const product = [
   }
 ]
 
-export default async function Home(name: string) {
-  const session: any = await getServerSession(authOptions as any);
+export default async function Home() {
   return (
     <main className="mt-10 flex justify-center h-screen overflow-hidden">
-
       <div className="container flex gap-2 overflow-scroll">
         {product.map((item, index) => (
           <Link href={{ pathname: `/products/${item.name}` }} key={index}>

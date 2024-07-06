@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Button } from '@/src/app/components/Elements/Button';
-import { Input } from '@/src/app/components/Elements/input';
+import { Button } from '@/src/components/Elements/Button';
+import { Input } from '@/src/components/Elements/input';
 import { BiUser, BiKey } from "react-icons/bi";
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
