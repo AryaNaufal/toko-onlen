@@ -4,7 +4,7 @@ export default function myShop() {
   return (
     <div className="flex h-screen">
       <div>
-        <Image src={''} alt={''} width={50} height={50} />
+        <Image src={'https://i.pinimg.com/736x/12/f8/4f/12f84f1d59ba2916fb56704a59a2771c.jpg'} alt={''} width={50} height={50} />
       </div>
       <div>
         <p>Hallo, user ayo isi detail tokomu!</p>

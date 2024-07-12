@@ -51,7 +51,7 @@ export default function Navbar({ initialCookies }: MainMenuProps) {
             </button>
             <h1>Menu Utama</h1>
           </div>
-          <div className={style.content}>
+          <div className="h-full overflow-scroll">
             <BurgerMenu initialCookies={initialCookies} />
           </div>
         </div>

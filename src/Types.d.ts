@@ -13,5 +13,15 @@ type User = {
 type Store = {
   id: number;
   name: string;
-  userId: number;
+  user_id: number;
+}
+
+type Product = {
+  id: number;
+  user_id: number;
+  name: string;
+  description: string;
+  stock: number;
+  picture: string;
+  price: number;
 }
