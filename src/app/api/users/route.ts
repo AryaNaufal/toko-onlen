@@ -1,5 +1,7 @@
+import { NextResponse } from "next/server";
 import { database } from "@/src/utils/prisma";
 import bcrypt from "bcryptjs";
+
 const prisma = database.getDB();
 
 export interface User {
@@ -15,40 +17,90 @@ export async function GET() {
   return Response.json(users);
 }
 
-// Create User
+// Create new User
 export async function POST(request: Request) {
-  const { name, email, password }: User = await request.json();
+  const { email, password }: User = await request.json();
 
-  if (name == "" || email == "" || password == "") {
-    return new Response("Data tidak boleh kosong", {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
+  if (!email || !password) { // Check email and password
+    return NextResponse.json({ error: 'email and password are required' }, { status: 400 });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) { // Check email format
+    return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
   }
 
   try {
     const user = await prisma.user.create({
       data: {
-        id: Number(Math.random() * 1000),
-        name: name,
         email: email,
         password: bcrypt.hashSync(password, 10),
-      },
+      }
     });
-    return new Response(JSON.stringify(user), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
+    return NextResponse.json(user);
   } catch (error) {
-    return new Response("Email Already Exist", {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      },
+    console.error('Error creating user:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+// Delete User
+export async function DELETE(request: Request) {
+  try {
+    const { id } = await request.json();
+
+    if (!id) { // id cant empty
+      return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: Number(id) },
     });
+
+    if (!user) { // id not found
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    await prisma.user.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+// Edit User
+export async function PUT(request: Request) {
+  try {
+    const { id, email, password } = await request.json();
+
+    if (!id) { // id cant empty
+      return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
+    }
+
+    const existingUser = await prisma.user.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!existingUser) { // user by id not found
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: {
+        email: email,
+        password: bcrypt.hashSync(password, 10),
+      }
+    });
+
+    return NextResponse.json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

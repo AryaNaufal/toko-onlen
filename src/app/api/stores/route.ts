@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
 const prisma = new PrismaClient();
 
 // Find all store
@@ -24,7 +25,7 @@ export async function GET() {
 
 // Create store name
 export async function POST(req: Request) {
-  const { name, userId }: Store = await req.json();
+  const { name, user_id }: Store = await req.json();
 
   if (!name) {
     return new Response('Name are required', {
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
     const stores = await prisma.store.create({
       data: {
         name,
-        userId
+        user_id: user_id
       }
     });
 

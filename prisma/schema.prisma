@@ -11,21 +11,63 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String?
-  email    String  @unique
+  email    String    @unique
   password String
   stores   Store?
+  products Product[]
+  orders   Order[]
+  carts    Cart[]
 }
 
 model Store {
-  id     Int     @id @default(autoincrement())
-  name   String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  id      Int    @id @default(autoincrement())
+  user_id Int    @unique
+  name    String @default("")
+  user    User   @relation(fields: [user_id], references: [id])
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  user_id     Int
+  name        String
+  description String
+  stock       Int
+  picture     String
+  price       Int
+  owner       User        @relation(fields: [user_id], references: [id])
+  carts       Cart[]
+  orderItems  OrderItem[]
+}
+
+model Cart {
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  items      Int
+  user       User    @relation(fields: [user_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  user_id     Int
+  order_date  DateTime
+  total_price Decimal
+  user        User        @relation(fields: [user_id], references: [id])
+  orderItems  OrderItem[]
+}
+
+model OrderItem {
+  id         Int     @id @default(autoincrement())
+  order_id   Int
+  product_id Int
+  qty        Int
+  price      Decimal
+  order      Order   @relation(fields: [order_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
 }
