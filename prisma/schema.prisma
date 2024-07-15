@@ -28,6 +28,7 @@ model Store {
   id      Int    @id @default(autoincrement())
   user_id Int    @unique
   name    String @default("")
+  alamat  String
   user    User   @relation(fields: [user_id], references: [id])
 }
 
