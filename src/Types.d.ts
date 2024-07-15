@@ -14,6 +14,7 @@ type Store = {
   id: number;
   name: string;
   user_id: number;
+  alamat: string
 }
 
 type Product = {

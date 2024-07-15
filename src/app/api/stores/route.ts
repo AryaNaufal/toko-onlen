@@ -25,7 +25,7 @@ export async function GET() {
 
 // Create store name
 export async function POST(req: Request) {
-  const { name, user_id }: Store = await req.json();
+  const { name, user_id, alamat }: Store = await req.json();
 
   if (!name) {
     return new Response('Name are required', {
@@ -51,7 +51,8 @@ export async function POST(req: Request) {
     const stores = await prisma.store.create({
       data: {
         name,
-        user_id: user_id
+        user_id: user_id,
+        alamat
       }
     });
 

@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/src/components/Fragments/Navbar";
 import Provider from "@/src/components/Fragments/Provider";
-import Footer from "@/src/components/Fragments/Footer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
@@ -28,9 +27,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryClientProvider client={queryClient}>
           <Provider>
-            <Navbar initialCookies={null} />
+            <Navbar />
             {children}
-            <Footer />
           </Provider>
         </QueryClientProvider>
       </body>

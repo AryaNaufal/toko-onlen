@@ -1,29 +1,28 @@
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
-import style from "./_Card.module.scss";
 
-export default function CardProduct({ src, name, price }: Params) {
+export default function CardProduct({ src, name, price, address }: Params) {
   const Rupiah = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
   });
   return (
-    <div className={style.card}>
-      <div className={style.productImage}>
+    <div className="block relative border border-slate-200 rounded-md">
+      <div className="w-full">
         <Image src={src} width={300} height={300} alt="product" />
       </div>
 
-      <div className={style.info}>
-        <div className={style.name}>
+      <div className="">
+        <div className="">
           <p>{name}</p>
         </div>
 
-        <div className={style.price}>
+        <div className="">
           <p>{Rupiah.format(price)}</p>
         </div>
 
-        <div className={style.rate}>
-          <div>
+        <div className="flex items-center text-sm gap-1">
+          <div className="w-auto flex gap-1">
             <Image
               src={
                 " https://assets.tokopedia.net/assets-tokopedia-lite/v2/phoenix/kratos/de64305b.svg"
@@ -31,21 +30,23 @@ export default function CardProduct({ src, name, price }: Params) {
               width={300}
               height={300}
               alt="product"
+              className="w-4"
             />
             <p>4.9</p>
           </div>
-          <span></span>
+          <span className="rounded-[100px]"></span>
           <p>100+ terjual</p>
         </div>
 
-        <div className={style.location}>
+        <div className="flex text-xs">
           <Image
             src={" https://images.tokopedia.net/ta/icon/badge/OS-Badge-80.png"}
             width={300}
             height={300}
             alt="product"
+            className="w-4"
           />
-          <p>Jakarta Pusat</p>
+          <p>{address}</p>
         </div>
       </div>
     </div>
