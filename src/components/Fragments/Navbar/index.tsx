@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { BiChevronRight } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
@@ -10,6 +10,7 @@ import { useSessionUser } from "@/src/features/session/useSessionUser";
 import Link from "next/link";
 import { useFetchStores } from "@/src/features/stores/useFetchStores";
 import SearchInput from "../../Elements/Search";
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function Navbar() {
   const [NavButton, setNavButton]: any = useState(true);
@@ -44,7 +45,7 @@ export default function Navbar() {
         <div className="container flex items-center justify-end h-full">
           <div className="flex w-full items-center gap-5 md:gap-10">
             <Link href={"/"}>
-              <h2 className="text-md md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-purple-400 to-red-400">
+              <h2 className="hidden sm:block text-md md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-purple-400 to-red-400">
                 Toko Pak Edi
               </h2>
             </Link>
@@ -55,9 +56,17 @@ export default function Navbar() {
             </div>
           </div>
           {/* Menu */}
-          <button onClick={() => setNavButton(!NavButton)}>
-            {NavButton && <LuMenu className="text-3xl" />}
-          </button>
+          <div className="flex items-center gap-1">
+            <div className="relative pr-2">
+              <FaShoppingCart className="text-2xl" />
+              <div className="drawer absolute top-0 right-0 text-white flex items-center justify-center bg-red-500 rounded-full h-3 w-3 p-2">
+                <p style={{ fontSize: "7px" }}>10</p>
+              </div>
+            </div>
+            <button onClick={() => setNavButton(!NavButton)}>
+              {NavButton && <LuMenu className="text-3xl" />}
+            </button>
+          </div>
         </div>
       </nav>
       {/* Mobile Display */}
@@ -165,8 +174,8 @@ export default function Navbar() {
             <div className="flex justify-between gap-3">
               {storeValidation ? (
                 <button
+                  onClick={handleClick}
                   className="border border-slate-300 p-2 flex items-center justify-between rounded-md w-[50%] text-xs"
-                  disabled
                 >
                   <p className="font-semibold">{storeValidation.name}</p>
                   <BiChevronRight className="text-lg md:text-xl lg:text-2xl" />

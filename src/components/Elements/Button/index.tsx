@@ -10,7 +10,7 @@ export const Button = ({
     <button
       type={type}
       onClick={onClick}
-      className={`px-2 py-4 font-bold cursor-pointer text-white ${variant}`}
+      className={`px-2 py-4 font-bold cursor-pointer text-white rounded-md ${variant}`}
       {...props}
     >
       {children}

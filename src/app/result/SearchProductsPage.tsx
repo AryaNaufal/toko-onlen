@@ -1,9 +1,8 @@
-"use client";
 import CardProduct from "@/src/components/Fragments/Card";
 import Link from "next/link";
-import { useFetchStores } from "../features/stores/useFetchStores";
-import { useFetchProducts } from "../features/products/useFetchProducts";
-import { useSessionUser } from "../features/session/useSessionUser";
+import { useFetchProducts } from "@/src/features/products/useFetchProducts";
+import { useFetchStores } from "@/src/features/stores/useFetchStores";
+import { useSearchParams } from "next/navigation";
 
 type Picture = {
   id: number;
@@ -21,39 +20,26 @@ const pictures = [
   },
 ];
 
-export default function Home() {
-  const {
-    data: session,
-    isLoading: sessionLoading,
-    error: sessionError,
-  } = useSessionUser(); // Fetch session
+export default function SearchProductsPage() {
+  const router = useSearchParams();
+  const query: any = router.get("search");
 
-  const id = session?.map((val: userSession) => {
-    return val.id; // session id
-  });
-
-  const {
-    data: stores,
-    isLoading: storesLoading,
-    error: errorStores,
-  } = useFetchStores(); // Fetch Api stores
+  const { data: stores } = useFetchStores(); // Fetch Api stores
 
   const {
     data: products,
     isLoading: productsLoading,
     error: errorProducts,
-  } = useFetchProducts(); // Fetch Api products
+  } = useFetchProducts(); // Fetch Api Products
 
-  if (storesLoading && productsLoading)
+  if (productsLoading)
     return (
       <div className="h-screen w-full flex justify-center items-center">
         <p>loading...</p>
       </div>
     );
 
-  if (sessionError) return "An error has occurred: " + sessionError.message;
-  if (errorStores) return "An error has occurred: " + errorStores.message;
-  if (errorProducts) return "An error has occurred: " + errorProducts.message;
+  if (errorProducts) return <div>Error: {errorProducts.message}</div>;
 
   const getStoreAddress = (productId: number): string | undefined => {
     // Cari product user_id berdasarkan parameter function
@@ -79,20 +65,25 @@ export default function Home() {
     return picture?.url;
   };
 
+  const filteredProducts = products.filter((product: Product) =>
+    product.name.toLowerCase().includes(query)
+  );
   return (
-    <main className="mt-10 flex justify-center">
-      <div className="container flex gap-3 overflow-scroll h-fit">
-        {products?.map((product: Product) => (
+    <>
+      {filteredProducts.length > 0 ? (
+        filteredProducts.map((product: Product) => (
           <Link href={{ pathname: `/products/${product.id}` }} key={product.id}>
             <CardProduct
-              src={getStorePicture(product.id)}
+              src={`${getStorePicture(product.id)}`}
               name={product.name}
               price={product.price}
               address={getStoreAddress(product.id)}
             />
           </Link>
-        ))}
-      </div>
-    </main>
+        ))
+      ) : (
+        <p>No products found.</p>
+      )}
+    </>
   );
 }

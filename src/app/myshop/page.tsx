@@ -4,6 +4,7 @@ import { useSessionUser } from "@/src/features/session/useSessionUser";
 import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { useFetchStores } from "@/src/features/stores/useFetchStores";
 
 interface Store {
   id?: number;
@@ -32,12 +33,13 @@ export default function MyShop() {
   const [storeName, setStoreName] = useState("");
   const [storeAddress, setStoreAddress] = useState("");
   const {
-    data: session,
+    data: sessions,
     isLoading: sessionLoading,
     error: sessionError,
   } = useSessionUser();
+  const { data: stores } = useFetchStores();
 
-  const sessionUser = session?.[0];
+  const sessionUser = sessions?.[0];
 
   const mutation = useMutation<Store, Error, any>({
     mutationFn: addStore,
@@ -63,66 +65,82 @@ export default function MyShop() {
     mutation.mutate(newStore);
   };
 
+  const userStore: Store = stores?.find(
+    (store: Store) => store.user_id === Number(sessionUser.id)
+  );
+
   return (
-    <div className="flex h-screen justify-center items-center gap-10">
-      <div>
-        <Image
-          src={
-            "https://i.pinimg.com/736x/12/f8/4f/12f84f1d59ba2916fb56704a59a2771c.jpg"
-          }
-          alt={""}
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
-      </div>
-      <div>
-        <p className="mb-5">
-          Hallo,
-          <span className="font-semibold mx-2">{sessionUser.email}</span>
-          ayo isi detail tokomu!
-        </p>
-
-        <ol className="relative border-s border-gray-200 dark:border-gray-700">
-          <li className="mb-10 ms-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Masukan Nama Toko
-            </h3>
-            <input
-              type="text"
-              className="rounded-md w-full mt-3"
-              placeholder="example: my store"
-              value={storeName}
-              onChange={(e) => setStoreName(e.target.value)}
+    <>
+      {userStore ? (
+        <>
+          <h1 className="font-bold">Store Profile:</h1>
+          <p>Store Name: {userStore.name}</p>
+          <p>Location: {userStore.alamat}</p>
+        </>
+      ) : (
+        <div className="flex h-screen justify-center items-center gap-10">
+          <div>
+            <Image
+              src={
+                "https://i.pinimg.com/736x/12/f8/4f/12f84f1d59ba2916fb56704a59a2771c.jpg"
+              }
+              alt={""}
+              width={50}
+              height={50}
+              className="rounded-full"
             />
-          </li>
-          <li className="ms-4">
-            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Masukkan Alamat Tokomu
-            </h3>
-            <input
-              type="text"
-              className="rounded-md w-full mt-3"
-              placeholder="example: Jakarta"
-              value={storeAddress}
-              onChange={(e) => setStoreAddress(e.target.value)}
-            />
-          </li>
-        </ol>
+          </div>
+          <div>
+            <p className="mb-5">
+              Hallo,
+              <span className="font-semibold mx-2">{sessionUser.email}</span>
+              ayo isi detail tokomu!
+            </p>
 
-        <button
-          onClick={handleSubmit}
-          className="mt-5 bg-blue-500 text-white px-4 py-2 rounded"
-          disabled={mutation.isPending}
-        >
-          {mutation.isPending ? "Adding..." : "Add Store"}
-        </button>
-        {mutation.isError && (
-          <p className="text-red-500 mt-3">Error: {mutation.error.message}</p>
-        )}
-      </div>
-    </div>
+            <ol className="relative border-s border-gray-200 dark:border-gray-700">
+              <li className="mb-10 ms-4">
+                <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Masukan Nama Toko
+                </h3>
+                <input
+                  type="text"
+                  className="rounded-md w-full mt-3"
+                  placeholder="example: my store"
+                  value={storeName}
+                  onChange={(e) => setStoreName(e.target.value)}
+                />
+              </li>
+              <li className="ms-4">
+                <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  Masukkan Alamat Tokomu
+                </h3>
+                <input
+                  type="text"
+                  className="rounded-md w-full mt-3"
+                  placeholder="example: Jakarta"
+                  value={storeAddress}
+                  onChange={(e) => setStoreAddress(e.target.value)}
+                />
+              </li>
+            </ol>
+
+            <button
+              onClick={handleSubmit}
+              className="mt-5 bg-blue-500 text-white px-4 py-2 rounded"
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? "Adding..." : "Add Store"}
+            </button>
+            {mutation.isError && (
+              <p className="text-red-500 mt-3">
+                Error: {mutation.error.message}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
