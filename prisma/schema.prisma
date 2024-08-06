@@ -11,64 +11,40 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model User {
-  id       Int       @id @default(autoincrement())
-  name     String?
-  email    String    @unique
-  password String
-  stores   Store?
-  products Product[]
-  orders   Order[]
-  carts    Cart[]
+  directUrl = env("DIRECT_URL")
 }
 
 model Store {
   id      Int    @id @default(autoincrement())
-  user_id Int    @unique
+  user_id String @unique
   name    String @default("")
   alamat  String
-  user    User   @relation(fields: [user_id], references: [id])
 }
 
 model Product {
-  id          Int         @id @default(autoincrement())
-  user_id     Int
+  id          Int           @id @default(autoincrement())
+  user_id     String
   name        String
   description String
   stock       Int
   picture     String
   price       Int
-  owner       User        @relation(fields: [user_id], references: [id])
-  carts       Cart[]
-  orderItems  OrderItem[]
+  cartItems   CartProduct[]
 }
 
 model Cart {
-  id         Int     @id @default(autoincrement())
-  user_id    Int
-  product_id Int
-  items      Int
-  user       User    @relation(fields: [user_id], references: [id])
-  product    Product @relation(fields: [product_id], references: [id])
+  id        Int           @id @default(autoincrement())
+  user_id   String        @unique
+  cartItems CartProduct[]
 }
 
-model Order {
-  id          Int         @id @default(autoincrement())
-  user_id     Int
-  order_date  DateTime
-  total_price Decimal
-  user        User        @relation(fields: [user_id], references: [id])
-  orderItems  OrderItem[]
-}
-
-model OrderItem {
+model CartProduct {
   id         Int     @id @default(autoincrement())
-  order_id   Int
+  cart_id    Int
   product_id Int
   qty        Int
-  price      Decimal
-  order      Order   @relation(fields: [order_id], references: [id])
-  product    Product @relation(fields: [product_id], references: [id])
+  Cart       Cart    @relation(fields: [cart_id], references: [id])
+  Product    Product @relation(fields: [product_id], references: [id])
+
+  @@unique([cart_id, product_id])
 }

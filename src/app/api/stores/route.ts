@@ -27,7 +27,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const { name, user_id, alamat }: Store = await req.json();
 
-  if (!name) {
+  if (name === '') {
     return new Response('Name are required', {
       status: 400,
       headers: {
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     const stores = await prisma.store.create({
       data: {
         name,
-        user_id: user_id,
+        user_id,
         alamat
       }
     });
@@ -63,7 +63,6 @@ export async function POST(req: Request) {
     });
 
   } catch (error) {
-    // console.error(error);
     return new Response(
       JSON.stringify({ message: 'Internal Server Error' }), {
       status: 500,
