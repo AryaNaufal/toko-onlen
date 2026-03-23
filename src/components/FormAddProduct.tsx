@@ -46,7 +46,7 @@ const formSchema = z.object({
     (a) => parseInt(z.string().parse(a), 10),
     z.number().gte(0, "Price must be greater than 0.")
   ),
-  product_image: z.custom(
+  picture: z.custom(
     (files) => {
       if (!(files instanceof FileList) || files.length === 0) {
         return false;
@@ -74,37 +74,44 @@ export default function FormAddProduct({ userId }: AddProductProps) {
       description: "",
       stock: 0,
       price: 0,
-      product_image: null,
+      picture: null,
     },
   });
 
-  const { mutate, isPending } = AddProduct();
+  const { mutateAsync, isPending } = AddProduct();
 
   if (isPending) return <Loading />;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
+
     const formData = new FormData();
-    formData.append("product_image", values.product_image![0]);
-    const response = await uploadFiles(formData);
+    formData.append("product_image", values.picture![0]);
+
+    const uploadRes = await uploadFiles(formData);
+
+    if (!uploadRes?.[0]?.data?.key) {
+      throw new Error("Upload failed");
+    }
+
     const data = {
-      ...values,
       user_id: userId,
-      picture: response[0].data?.key,
+      name: values.name,
+      description: values.description,
+      stock: values.stock,
+      price: values.price,
+      picture: uploadRes[0].data.key,
     };
 
     try {
-      const response: any = mutate(data);
-      if (response) {
-        toast({
-          description: "Product Added",
-        });
-      }
+      await mutateAsync(data);
+
+      toast({ description: "Product Added" });
       window.location.reload();
-    } catch (error: Error | any) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: "Error",
         description: error.message,
       });
     }
@@ -195,7 +202,7 @@ export default function FormAddProduct({ userId }: AddProductProps) {
 
             <FormField
               control={form.control}
-              name="product_image"
+              name="picture"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Product Image</FormLabel>

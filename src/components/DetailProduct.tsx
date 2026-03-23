@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { FetchProducts } from "../hooks/products/useProducts";
 import Loading from "./Loading";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import { toast } from "./ui/use-toast";
 export default function DetailProduct({ userId }: { userId: string | null }) {
   const params = useSearchParams();
   const id = params?.get("id");
+  const router = useRouter()
 
   const { data: ProductData, isLoading: ProductLoading } = FetchProducts();
   const { data: cartData, isLoading: CartLoading } = FetchCart();
@@ -68,6 +69,18 @@ export default function DetailProduct({ userId }: { userId: string | null }) {
       product_id: ProductId?.id,
       qty: 1,
     };
+
+    // Jika user belum login
+    if (userId === null) {
+      toast({
+        description: "Please Login To Add Product To Cart",
+        title: "Error",
+      });
+      setTimeout(() => {
+        router.push("/sign-in");
+      }, 4000);
+      return;
+    }
 
     // Tambah keranjang user jika belum ada
     if (isUserCart === undefined) {

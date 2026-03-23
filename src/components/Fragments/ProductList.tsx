@@ -24,11 +24,6 @@ export default function ProductList() {
 
   return (
     <>
-      {user && (
-        <h1 className="font-bold text-base md:text-3xl">
-          Welcome {user?.fullName}
-        </h1>
-      )}
       <div className="flex w-full justify-center overflow-hidden gap-2 flex-wrap mt-10">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {syncProductsWithStoreAddress?.map((product: any) => (

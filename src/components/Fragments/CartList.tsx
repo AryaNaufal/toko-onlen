@@ -8,11 +8,11 @@ import {
 } from "@/src/hooks/carts/useCart";
 import { FetchProducts } from "@/src/hooks/products/useProducts";
 import Image from "next/image";
-import { useState, useEffect, cache } from "react";
+import React, { useState, useEffect, cache } from "react";
 import { FaTrashCan } from "react-icons/fa6";
 
-export default function CartProductList({ userId }: { userId: string | null }) {
-  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
+export default function CartList({ userId }: { userId: string }) {
+    const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
   const { data: cartData, isLoading: cartLoading } = FetchCart();
   const { data: cartProductData, isLoading: cartProductLoading } =
     FetchCartProduct();

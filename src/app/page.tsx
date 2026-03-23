@@ -1,6 +1,10 @@
-import ProductList from "../components/Fragments/ProductList";
+"use client";
+import ProductList from "@/src/components/Fragments/ProductList";
+import { useAuth } from '@clerk/nextjs'
 
 export default function Example() {
+  const { userId } = useAuth()
+
   return (
     <section className="overflow-hidden h-full p-3">
       <ProductList />

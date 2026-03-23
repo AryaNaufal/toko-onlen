@@ -1,5 +1,6 @@
+"use client";
 import DetailProduct from "@/src/components/DetailProduct";
-import { auth } from "@clerk/nextjs/server";
+import { useAuth } from '@clerk/nextjs'
 
 type Props = {
   params: {
@@ -8,12 +9,11 @@ type Props = {
 };
 
 export default function ProductDetails() {
-  const { userId } = auth();
-  console.log(userId);
+  const { userId } = useAuth();
   
   return (
     <section className="h-full overflow-hidden">
-      <DetailProduct userId={userId} />
+      <DetailProduct userId={userId as string} />
     </section>
   );
 }

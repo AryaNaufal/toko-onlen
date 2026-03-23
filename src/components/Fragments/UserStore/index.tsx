@@ -13,7 +13,7 @@ interface UserIdProps {
   userId: string;
 }
 
-export default function AuthPage({ userId }: UserIdProps) {
+export default function UserStore({ userId }: UserIdProps) {
   const { user } = useUser();
   const { data: ProductData, isLoading: ProductLoading } = FetchProducts();
   const { data: StoreData, isLoading: StoreLoading } = FetchStores();
@@ -39,7 +39,7 @@ export default function AuthPage({ userId }: UserIdProps) {
   });
 
   return (
-    <div>
+    <>
       {checkStore ? (
         <>
           {checkStore && (
@@ -87,6 +87,6 @@ export default function AuthPage({ userId }: UserIdProps) {
           <FormAddStore userId={userId} />
         </>
       )}
-    </div>
+    </>
   );
 }

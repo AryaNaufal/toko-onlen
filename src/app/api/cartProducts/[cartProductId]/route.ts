@@ -1,10 +1,11 @@
 import { database } from "@/src/utils/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import React from "react";
 
 const prisma = database.getDB();
 
 export async function PUT(request: NextRequest, context: { params: { cartProductId: string } }) {
-  const { cartProductId } = context.params;
+  const { cartProductId } = await context.params;
   const { ...data } = await request.json();
   const cartProduct = await prisma.cartProduct.update({
     where: {
@@ -16,7 +17,7 @@ export async function PUT(request: NextRequest, context: { params: { cartProduct
 }
 
 export async function DELETE(request: NextRequest, context: { params: { cartProductId: string } }) {
-  const { cartProductId } = context.params;
+  const { cartProductId } = await context.params;
   const cartProduct = await prisma.cartProduct.delete({
     where: {
       id: Number(cartProductId)

@@ -1,7 +1,6 @@
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
 
-export default function CardProduct({ src, name, price, address }: Params) {
+export default function CardProduct({ src, name, price, address }: { src: any; name: string; price: number; address: string }) {
   const Rupiah = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",

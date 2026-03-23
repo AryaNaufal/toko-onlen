@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl={"/"}>
       <html lang="en">
-        <body>
+        <body cz-shortcut-listen="true">
           <QueryClientProvider client={queryClient}>
             <Navbar />
             <main>{children}</main>
