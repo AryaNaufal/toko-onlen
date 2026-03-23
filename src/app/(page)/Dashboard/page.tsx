@@ -1,5 +1,4 @@
 "use client"
-
 import Loading from "@/src/components/Loading";
 import { FetchProducts } from "@/src/hooks/products/useProducts";
 

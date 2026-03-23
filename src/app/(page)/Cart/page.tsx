@@ -2,16 +2,22 @@
 import { useAuth } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation';
 import CartList from '@/src/components/Fragments/CartList';
+import { useEffect } from 'react';
 
 export default function Cart() {
-  const { userId } = useAuth();
+  const { userId, isLoaded } = useAuth();
   const router = useRouter();
 
-  if (!userId) {
-    router.push('/sign-in');
-  }
+  useEffect(() => {
+    if (isLoaded && !userId) {
+      router.push('/sign-in');
+    }
+  }, [isLoaded, userId, router]);
+
+  if (!isLoaded || !userId) return null;
+
   return (
-    <section className="overflow-hidden h-full p-3">
+    <section className="bg-[#F0F3F7] overflow-hidden min-h-svh p-3">
       <CartList userId={userId as string} />
     </section>
   );

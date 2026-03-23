@@ -15,3 +15,18 @@ export async function POST(request: NextRequest) {
   });
   return NextResponse.json(cartProduct);
 }
+
+export async function DELETE(request: NextRequest) {
+  const { ids } = await request.json();
+  if (!ids || !Array.isArray(ids)) {
+    return NextResponse.json({ error: "Invalid IDs" }, { status: 400 });
+  }
+
+  await prisma.cartProduct.deleteMany({
+    where: {
+      id: { in: ids.map(Number) }
+    }
+  });
+
+  return NextResponse.json({ message: "Cart products deleted successfully" });
+}

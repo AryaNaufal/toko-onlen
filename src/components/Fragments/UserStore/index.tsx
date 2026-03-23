@@ -58,12 +58,13 @@ export default function UserStore({ userId }: UserIdProps) {
               </div>
             </>
           )}
-          <FormAddProduct userId={userId} />
+          <div className="flex gap-4 pt-5">
+            <h1 className="font-bold text-xl md:text-3xl">My Products:</h1>
+            <FormAddProduct userId={userId} />
+          </div>
           <div className="pt-10">
-            <h1 className="ml-4 font-bold text-xl md:text-3xl">My Products:</h1>
             <div className="flex w-full justify-center overflow-hidden gap-2 py-5 flex-wrap">
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {/* <StoreProductList userId={userId} /> */}
                 {checkStore &&
                   checkProduct?.map((product: Product) => (
                     <Link
@@ -79,13 +80,11 @@ export default function UserStore({ userId }: UserIdProps) {
                     </Link>
                   ))}
               </div>
-            </div>
+              </div>
           </div>
         </>
       ) : (
-        <>
-          <FormAddStore userId={userId} />
-        </>
+        <FormAddStore userId={userId} />
       )}
     </>
   );

@@ -6,13 +6,13 @@ export default function CardProduct({ src, name, price, address }: { src: any; n
     currency: "IDR",
   });
   return (
-    <div className="block relative border border-slate-200 rounded-md w-36 md:w-60 xl:w-96 overflow-hidden">
+    <div className="block relative border border-slate-200 rounded-md w-44 md:w-56 lg:w-72 xl:w-96 overflow-hidden">
       <div className="w-full h-auto">
         <Image
           src={`https://utfs.io/f/${src}`}
           width={600}
           height={600}
-          className="w-full h-full object-fill"
+          className="w-full h-80 object-cover"
           alt="product"
           priority={true}
         />
