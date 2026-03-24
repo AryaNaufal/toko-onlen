@@ -21,6 +21,7 @@ export default function DetailProduct({ userId }: { userId: string | null }) {
   const id = params?.get("id");
   const router = useRouter();
   const [quantity, setQuantity] = useState<number | string>(1);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const { data: ProductData, isLoading: ProductLoading } = FetchProducts();
   const { data: StoreData, isLoading: StoreLoading } = FetchStores();
@@ -164,7 +165,7 @@ export default function DetailProduct({ userId }: { userId: string | null }) {
                   src={`https://utfs.io/f/${ProductItem.picture}`}
                   alt={ProductItem.name}
                   fill
-                  className="object-cover"
+                  className="object-cover bg-slate-100"
                   priority
                 />
               </div>
@@ -195,9 +196,19 @@ export default function DetailProduct({ userId }: { userId: string | null }) {
 
             <div className="flex flex-col gap-2">
               <h3 className="font-bold text-slate-800">Detail</h3>
-              <p className="text-sm text-slate-600 whitespace-pre-wrap leading-relaxed">
-                {ProductItem.description}
-              </p>
+              <div className="relative">
+                <p className={`text-sm text-slate-600 whitespace-pre-wrap leading-relaxed ${!isExpanded ? "line-clamp-3" : ""}`}>
+                  {ProductItem.description}
+                </p>
+                {ProductItem.description.length > 200 && (
+                  <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="text-[#00AA5B] font-bold text-sm mt-2 hover:text-[#00924e] transition-colors"
+                  >
+                    {isExpanded ? "Lihat Lebih Sedikit" : "Lihat Selengkapnya"}
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="h-[1px] bg-slate-100 w-full" />

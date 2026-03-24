@@ -246,7 +246,7 @@ export default function CartList({ userId }: { userId: string }) {
                             src={`https://utfs.io/f/${item.productDetails?.picture}`}
                             alt={item.productDetails?.name || "product"}
                             fill
-                            className="object-cover"
+                            className="object-cover bg-slate-100"
                           />
                         </div>
 

@@ -23,6 +23,40 @@ export async function GET(req: Request, context: { params: { productId: string }
 }
 
 // Update product
+// export async function PUT(req: Request, context: { params: { productId: string } }) {
+//   const { productId } = await context.params;
+//   const { user_id, name, description, stock, picture, price }: Product = await req.json();
+//   try {
+//     const product = await prisma.product.update({
+//       where: {
+//         id: Number(productId)
+//       },
+//       data: {
+//         user_id,
+//         name,
+//         description,
+//         stock,
+//         picture,
+//         price
+//       }
+//     });
+//     return new Response(JSON.stringify(product), {
+//       status: 200,
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//     });
+//   } catch (error) {
+//     return new Response(JSON.stringify(error), {
+//       status: 500,
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//     });
+//   }
+// }
+
+// Update product
 export async function PATCH(req: Request, context: { params: { productId: string } }) {
   const { productId } = await context.params;
   const { user_id, name, description, stock, picture, price }: Product = await req.json();

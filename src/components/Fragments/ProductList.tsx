@@ -32,7 +32,7 @@ export default function ProductList() {
 
   return (
     <>
-      <div className="flex w-full justify-center overflow-hidden gap-2 flex-wrap mt-10">
+      <div className="flex w-full justify-center overflow-hidden gap-2 flex-wrap my-5">
         {syncProductsWithStoreAddress && syncProductsWithStoreAddress.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {syncProductsWithStoreAddress?.map((product: any) => (

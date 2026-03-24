@@ -37,5 +37,24 @@ export const AddStore = () => {
     onError: () => {
       throw new Error("Error adding store");
     },
-  })
-};
+    })
+    };
+
+    export const UpdateStore = () => {
+    return useMutation({
+    mutationKey: ["stores"],
+    mutationFn: async (store: Store) => {
+      const response = await fetch(`/api/stores/${store.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(store),
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    },
+    })
+    }

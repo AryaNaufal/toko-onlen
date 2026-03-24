@@ -1,72 +1,93 @@
 "use client";
-import { FormEvent, useState } from "react";
-import { AddStore } from "../hooks/stores/useStore";
+import { FormEvent, useState, useEffect } from "react";
+import { AddStore, UpdateStore } from "../hooks/stores/useStore";
 import { useRouter } from "next/navigation";
 import Loading from "./Loading";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
-export default function FormAddStore({ userId }: any) {
-  const [name, setName] = useState("");
-  const [alamat, setAlamat] = useState("");
+interface FormAddStoreProps {
+  userId: string;
+  store?: Store;
+}
+
+export default function FormAddStore({ userId, store }: FormAddStoreProps) {
+  const [name, setName] = useState(store?.name || "");
+  const [alamat, setAlamat] = useState(store?.alamat || "");
   const router = useRouter();
+  const isEdit = !!store;
 
-  const { mutate, isPending } = AddStore();
+  const { mutate: addMutate, isPending: isAdding } = AddStore();
+  const { mutate: updateMutate, isPending: isUpdating } = UpdateStore();
 
-  if (isPending) return <Loading />;
+  const isPending = isAdding || isUpdating;
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const data = { name, user_id: userId, alamat };
+    const data = { id: store?.id, name, user_id: userId, alamat };
 
     try {
-      mutate(data);
-      window.location.reload();
-      router.push("/MyStore");
+      if (isEdit) {
+        updateMutate(data, {
+          onSuccess: () => {
+            toast({ description: "Toko berhasil diperbarui" });
+            window.location.reload();
+          }
+        });
+      } else {
+        addMutate(data, {
+          onSuccess: () => {
+            toast({ description: "Toko berhasil dibuat" });
+            window.location.reload();
+          }
+        });
+      }
     } catch (error) {
-      throw new Error("Error adding product");
+      toast({ variant: "destructive", description: "Terjadi kesalahan" });
     }
   };
 
   return (
-    <>
-      <h1 className="ml-4 font-bold text-base md:text-xl">
-        Create your Store:
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border border-slate-100">
+      <h1 className="font-bold text-xl md:text-2xl text-slate-800 mb-6 text-center">
+        {isEdit ? "Edit Informasi Toko" : "Buka Toko Baru"}
       </h1>
-      <div className="flex justify-center w-full px-5">
-        <form onSubmit={handleSubmit} method="POST">
-          <div className="flex flex-col gap-3 w-72">
-            <div className="flex flex-col gap-1">
-              <label htmlFor="name">Store Name: </label>
-              <input
-                id="name"
-                value={name}
-                type="text"
-                onChange={(e) => setName(e.target.value)}
-                className="border h-7 rounded-sm"
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="address">Store Address: </label>
-              <input
-                id="alamat"
-                value={alamat}
-                type="text"
-                onChange={(e) => setAlamat(e.target.value)}
-                className="border h-7 rounded-sm"
-                required
-              />
-            </div>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex flex-col gap-2">
+          <label htmlFor="name" className="text-sm font-medium text-slate-700">Nama Toko</label>
+          <Input
+            id="name"
+            value={name}
+            type="text"
+            placeholder="Masukkan nama tokomu"
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="border-slate-300"
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="alamat" className="text-sm font-medium text-slate-700">Alamat Toko</label>
+          <Input
+            id="alamat"
+            value={alamat}
+            type="text"
+            placeholder="Masukkan alamat lengkap toko"
+            onChange={(e) => setAlamat(e.target.value)}
+            required
+            className="border-slate-300"
+          />
+        </div>
 
-            <button
-              type="submit"
-              className="text-white bg-green-500 hover:bg-green-600 rounded-md w-24 h-10 mt-2"
-            >
-              submit
-            </button>
-          </div>
-        </form>
-      </div>
-    </>
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-md transition-colors"
+        >
+          {isPending ? "Memproses..." : isEdit ? "Simpan Perubahan" : "Buka Toko Sekarang"}
+        </Button>
+      </form>
+    </div>
   );
 }

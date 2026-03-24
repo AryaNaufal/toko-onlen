@@ -17,7 +17,7 @@ export default function MyShop() {
   if (!isLoaded || !userId) return null;
 
   return (
-    <div className="container mx-auto py-5">
+    <div className="container mx-auto">
       <UserStore userId={userId as string} />
     </div>
   );

@@ -9,50 +9,58 @@ import {
 } from "@/src/components/ui/dialog";
 import { Input } from "@/src/components/ui/input";
 import { Textarea } from "./ui/textarea";
-import { AddProduct } from "@/src/hooks/products/useProducts";
+import { UpdateProduct } from "@/src/hooks/products/useProducts";
 import { toast } from "./ui/use-toast";
 import { uploadFiles } from "../app/(page)/Example/imageUploader";
+import { FaEdit } from "react-icons/fa";
 
-interface AddProductProps {
+interface EditProductProps {
   userId: string;
+  product: Product;
 }
 
-export default function FormAddProduct({ userId }: AddProductProps) {
+export default function FormEditProduct({ userId, product }: EditProductProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    stock: "",
-    price: "",
+    name: product.name,
+    description: product.description,
+    stock: product.stock.toString(),
+    price: product.price.toString(),
   });
   const [file, setFile] = useState<File | null>(null);
 
-  const { mutateAsync: addMutate } = AddProduct();
+  const { mutateAsync: updateMutate } = UpdateProduct();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!file) return toast({ variant: "destructive", description: "Gambar wajib diunggah" });
-    
     setLoading(true);
+    
     try {
-      const uploadData = new FormData();
-      uploadData.append("product_image", file);
-      const uploadRes = await uploadFiles(uploadData);
+      let pictureKey = product.picture;
 
-      if (!uploadRes?.[0]?.data?.key) throw new Error("Gagal mengunggah gambar");
+      // Handle optional image update
+      if (file) {
+        const uploadData = new FormData();
+        uploadData.append("product_image", file);
+        const uploadRes = await uploadFiles(uploadData);
+        if (uploadRes?.[0]?.data?.key) {
+          pictureKey = uploadRes[0].data.key;
+        }
+      }
 
       const productData = {
+        id: product.id,
         user_id: userId,
         name: formData.name,
         description: formData.description,
         stock: parseInt(formData.stock),
         price: parseInt(formData.price),
-        picture: uploadRes[0].data.key,
+        picture: pictureKey,
       };
 
-      await addMutate(productData);
-      toast({ description: "Produk berhasil ditambahkan" });
+      await updateMutate(productData);
+      toast({ description: "Produk berhasil diperbarui" });
       setOpen(false);
       window.location.reload();
     } catch (error: any) {
@@ -65,19 +73,19 @@ export default function FormAddProduct({ userId }: AddProductProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-green-500 hover:bg-green-600 font-semibold text-white">
-          Add Product
+        <Button className="bg-blue-500 hover:bg-blue-600 w-full flex gap-2">
+          <FaEdit />
+          <span>Edit</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="h-[450px] md:h-auto overflow-auto">
-        <DialogTitle>Tambah Produk Baru</DialogTitle>
+        <DialogTitle>Edit Produk</DialogTitle>
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
           <div className="space-y-2">
             <label className="text-sm font-medium">Nama Produk</label>
             <Input
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="Contoh: Sepatu Lari"
               required
             />
           </div>
@@ -87,7 +95,6 @@ export default function FormAddProduct({ userId }: AddProductProps) {
             <Textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Jelaskan detail produkmu..."
               required
             />
           </div>
@@ -114,16 +121,18 @@ export default function FormAddProduct({ userId }: AddProductProps) {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Gambar Produk</label>
+            <label className="text-sm font-medium text-slate-500 flex justify-between">
+              <span>Ganti Gambar</span>
+              <span className="text-[10px]">*Kosongkan jika tidak ingin mengubah</span>
+            </label>
             <Input
               type="file"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
-              required
             />
           </div>
 
           <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Menambahkan..." : "Tambah Produk"}
+            {loading ? "Memperbarui..." : "Update Produk"}
           </Button>
         </form>
       </DialogContent>

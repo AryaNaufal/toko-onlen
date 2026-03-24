@@ -6,7 +6,7 @@ export default function Example() {
   const { userId } = useAuth()
 
   return (
-    <section className="overflow-hidden h-full p-3">
+    <section className="container mx-auto overflow-hidden h-full p-3">
       <ProductList />
     </section>
   );

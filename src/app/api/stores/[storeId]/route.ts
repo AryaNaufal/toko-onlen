@@ -3,8 +3,8 @@ import { database } from "@/src/utils/prisma";
 const prisma = database.getDB();
 
 // Find store by id
-export async function GET(req: Request, context: { params: { storeId: string } }) {
-  const { storeId } = context.params;
+export async function GET(req: Request, context: { params: Promise<{ storeId: string }> }) {
+  const { storeId } = await context.params;
 
   try {
     const store = await prisma.store.findUnique({
@@ -38,8 +38,8 @@ export async function GET(req: Request, context: { params: { storeId: string } }
 }
 
 // Update store
-export async function PATCH(req: Request, context: { params: { storeId: string } }) {
-  const { storeId } = context.params;
+export async function PATCH(req: Request, context: { params: Promise<{ storeId: string }> }) {
+  const { storeId } = await context.params;
   const { name, alamat }: Store = await req.json();
   try {
     const store = await prisma.store.update({
